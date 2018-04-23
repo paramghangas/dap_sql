@@ -1,16 +1,16 @@
 Properties W/ Comments on Associated Events
 
 Common Across All events
-session_id, event, type, sub_type, session_sequence  																	      -- event data & session linkage
-,event_timestamp, original_timestamp, received_at, sent_at, timezone_offset, dt, mo, yr  		-- timestamps
-,user_id, mlbam_ipid, device_serial_number, advertising_id 																	-- different device or user ids
-,device, device_code, model, full_device, manufacturer, os_version                          -- device & app related dimensions
-,design, is_phone, device_locale, app_version 				                                      -- device & app related dimensions
-,is_logged_in, affiliate_code, language,                                                    -- other session or visitor related dimensions
-country_code, affiliate_code, anonymous_id, client_id, message_id 						              -- other session or visitor related dimensions
-,product_type, product_code, service_code, brand  																				  -- product and brand related fields
-,library_name, library_version, parcel_source, write_key,                                   -- telegraph/ logging related fields 
-shell_version, version, cdn, channel, project_id  					                                -- telegraph/ logging related fields 
+session_id, event, type, sub_type, session_sequence                   
+,event_timestamp, original_timestamp, received_at, sent_at, timezone_offset, dt, mo, yr                    
+,user_id, mlbam_ipid, device_serial_number, advertising_id 											-- different device or user ids
+,device, device_code, model, full_device, manufacturer, os_version              -- device & app related dimensions
+,design, is_phone, device_locale, app_version 				                          -- device & app related dimensions
+,is_logged_in, affiliate_code, language,                                        -- other session or visitor related dimensions
+country_code, affiliate_code, anonymous_id, client_id, message_id 						  -- other session or visitor related dimensions
+,product_type, product_code, service_code, brand  															-- product and brand related fields
+,library_name, library_version, parcel_source, write_key,                       -- telegraph/ logging related fields 
+shell_version, version, cdn, channel, project_id  					                    -- telegraph/ logging related fields 
 
 Common Across Video Events
 ,full_season_title, series_name, title, episode_number, viewable_id, edit_id, video_position, video_session_id  				
