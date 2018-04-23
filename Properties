@@ -2,7 +2,7 @@ Properties W/ Comments on Associated Events
 
 Common Across All events
 session_id, event, type, sub_type, session_sequence  																	      -- event data & session linkage
-,event_timestamp, original_timestamp, received_at, sent_at, timezone_offset, dt, mo, yr  		--timestamps
+,event_timestamp, original_timestamp, received_at, sent_at, timezone_offset, dt, mo, yr  		-- timestamps
 ,user_id, mlbam_ipid, device_serial_number, advertising_id 																	-- different device or user ids
 ,device, device_code, model, full_device, manufacturer, os_version                          -- device & app related dimensions
 ,design, is_phone, device_locale, app_version 				                                      -- device & app related dimensions
