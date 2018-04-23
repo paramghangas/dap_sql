@@ -1,0 +1,16 @@
+
+-- Find events currently in telegraph data
+
+select event from sp_telegraph.application group by 1 union 
+select event from sp_telegraph.navigation group by 1 union 				-- no event types, this table represents screen views not user actions
+select event from sp_telegraph.ui group by 1 union 
+select event from sp_telegraph.purchase group by 1 union 
+select event from sp_telegraph.search group by 1 union 
+select event from sp_telegraph.user group by 1 union 
+select event from sp_telegraph.video group by 1 union 	
+select event from sp_telegraph.watchlist group by 1 union
+select event from sp_telegraph.video_tmp group by 1 union 				-- no event types
+select event from sp_telegraph.videomanifest group by 1 union 		-- 
+select event from sp_telegraph.stethoscope group by 1 union 			--appears to be logging related, not usage related
+select event from sp_telegraph.telemetry group by 1 union 				--appears to be logging related, not usage related
+select event from sp_telegraph.pushnotification group by 1  		  --not fully implemented, looks to be test data
