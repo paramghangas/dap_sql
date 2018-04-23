@@ -19,6 +19,8 @@ and product_code = 'hboNow'
 GROUP BY 1
 ORDER BY 1 ASC
 
+-- register events
+
 -- purchases (but not fully working on DAP, do not use right now)
 SELECT date_trunc('day', event_timestamp) as day, count (*) as purchases,
       FROM sp_telegraph.purchase
@@ -28,4 +30,5 @@ SELECT date_trunc('day', event_timestamp) as day, count (*) as purchases,
       GROUP BY day
       ORDER BY day ASC
 
+--
 
