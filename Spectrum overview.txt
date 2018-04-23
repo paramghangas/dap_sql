@@ -1,0 +1,17 @@
+-- schemas in spectrum
+select * from svv_external_tables 
+
+-- browse tables for specific schemas
+select * from svv_external_tables where schemaname = 'sp_telegraph';
+select * from svv_external_tables where schemaname = 'sp_adobe_analytics';
+select * from svv_external_tables where schemaname = 'sp_conviva';
+
+-- browse columns for specific tables
+select * from svv_external_columns where tablename = 'hbogo_hit_data_201802'
+select * from svv_external_columns where tablename = 'hbogo_streaming';
+select * from svv_external_columns where schemaname = 'sp_conviva';
+
+-- browse specific table
+select * from sp_telegraph.application limit 100
+select * from sp_telegraph.video limit 100
+select * from sp_conviva.hbogo_streaming where startup_error >0 limit 100
