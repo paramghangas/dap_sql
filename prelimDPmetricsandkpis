@@ -1,0 +1,12 @@
+1. -- Purchase Funnel Starts
+
+SELECT device_code, date_trunc('year', event_timestamp) as year, date_trunc('month', event_timestamp) as month, count (*) as views 
+FROM sp_telegraph.ui
+WHERE event_timestamp >= '2018-01-01'
+AND target LIKE 'PAYWALL_CTA'   
+and product_code = 'hboNow'
+GROUP BY 1,2,3
+ORDER BY 1,2,3 ASC
+
+Some Notes: 
+-- assumes that all these complete successfully for now which is unlikely. better to base this off of actual people who reach next page but need to verify the first page is the Register screen for all devices. Is it? Not sure.
