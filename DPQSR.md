@@ -1,6 +1,6 @@
 **1.  Purchase Funnel Starts**
 
-1a. All Purchase Funnel Starts
+1a. All Purchase Funnel Starts (accounts for diff implementation on mobile/ ctv devices, but not session deduped)
 ```
 SELECT device_code, date_trunc('month', event_timestamp) as month, count (*) as views 
 FROM sp_telegraph.ui
@@ -8,11 +8,18 @@ WHERE event_timestamp >= '2018-01-01'
 AND target LIKE 'PAYWALL_CTA'   
 AND product_code = 'hboNow'
 GROUP BY 1,2
-ORDER BY 1,2 ASC
+union all
+SELECT device_code, date_trunc('month', event_timestamp) as month, count (*) as views 
+FROM sp_telegraph.navigation
+WHERE event_timestamp >= '2018-01-01'
+AND view_type = 'Activation'  
+AND product_code = 'hboNow'
+GROUP BY 1,2
 ```
 
-1b. Distinct Purchase Funnel Starts (dedups if someone clicks on CTA twice in a session)
+1b. Distinct Purchase Funnel Starts (deduped and accounts for different implementation on mobile/ ctv devices)
 ```
+-- this part addresses the mobile apps
 SELECT device_code, date_trunc('month', event_date) as month, count(session_id)
 FROM
 (SELECT device_code, date(event_timestamp) as event_date, session_id
@@ -20,8 +27,18 @@ FROM sp_telegraph.ui
 WHERE event_timestamp >= '2018-01-01'
 AND target LIKE 'PAYWALL_CTA'   
 AND product_code = 'hboNow'
-GROUP BY 1,2,3
-ORDER BY 1,2,3 ASC)
+GROUP BY 1,2,3)
+GROUP BY 1,2
+union all
+-- this part addresses the ctv apps (different implementation)
+SELECT device_code, date_trunc('month', event_date) as month, count(session_id)
+FROM
+(SELECT device_code, date(event_timestamp) as event_date, session_id
+FROM sp_telegraph.navigation
+WHERE event_timestamp >= '2018-01-01'
+AND view_type = 'Activation'  
+AND product_code = 'hboNow'
+GROUP BY 1,2,3)
 GROUP BY 1,2
 ```
 
@@ -32,10 +49,21 @@ Some Notes:
 -- I thought there was some data for Apple TV in Telegraph so will need to investigate why nothing for this is coming up, perhaps the instrumentation on the Call to Action button is different? Asked Carlos and he said that currently the CTA button is not tagged in those (just mobile) so to pull for those others use navigation  and look for view type "Activation" which is a view to activation page. 
 
 **2.       Purchase Funnel Conversion Rate**
-Question out to DAP team (via slack) on why there are no events after 1/16/2018. Carlos said they are being collected and sent so issue seems to be on DAP end?
+Not sure that this purchase successful event corresponds to the subscribe event that is being worked on as part of receipts processing but for the purposes of understanding funnel conversion rate, let's use this now with a huge caveat that this may change once transaction work fully completes.
 
+2a. Monthly transactions by Device
 ```
-tbd
+SELECT device_code, date_trunc('month', event_timestamp) as month, count (*) as purchase_successful
+FROM sp_telegraph.purchase
+WHERE event_timestamp >= '2018-01-01'
+and product_code = 'hboNow'
+GROUP BY 1,2
+ORDER BY 1,2 ASC
+```
+
+2b. Purchase Funnel Conversion Rate 
+```
+
 ```
 
 **3.       Purchase Funnel Completion Time**
