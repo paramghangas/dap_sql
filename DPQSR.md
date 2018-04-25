@@ -52,7 +52,11 @@ Some Notes:
 
 
 **2.       Purchase Funnel Conversion Rate**
-Not sure that this purchase successful event corresponds to the subscribe event that is being worked on as part of receipts processing but for the purposes of understanding funnel conversion rate, let's use this now with a huge caveat that this may change once transaction work fully completes.
+* Not sure that this purchase successful event corresponds to the subscribe event that is being worked on as part of receipts processing but for the purposes of understanding funnel conversion rate, let's use this now with a huge caveat that this may change once transaction work fully completes.
+
+```
+TBD
+```
 
 2a. Monthly transactions by Device
 ```
@@ -90,14 +94,18 @@ ORDER BY 2,1 ASC
 ```
 
 **5.       Content Consumption Rate**
-Requires more discussion and context
+* Requires more discussion and context
 
 ```
 tbd
 ```
 
 **6.       Discovery Time**
-Time to first play
+* Time to first play
+
+```
+tbd
+```
 
 **7.       Diversity of Content Consumed**
 Requires more discussion and context
@@ -107,9 +115,17 @@ tbd
 ```
 
 **8.       Session Time**
-A bit tricky the way the data is structured (requires collapsing all tables to derive session time. Will try to figure out an efficient way of running this.
+* A bit tricky the way the data is structured (requires collapsing all tables to derive session time. Will try to figure out an efficient way of running this.
+
+```
+tbd
+```
 
 **9.       Plays & Extended Plays**
-Will rely on Conviva for now to provide Streams but ideally we'd use Telegraph in the future. 
-What is extended plays?
+* Will rely on Conviva for now to provide Streams but ideally we'd use Telegraph in the future. 
+* What is extended plays?
+
+```
+tbd
+```
 
