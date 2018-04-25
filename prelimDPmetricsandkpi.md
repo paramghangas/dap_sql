@@ -1,4 +1,4 @@
-#**1. -- Purchase Funnel Starts**
+**1. -- Purchase Funnel Starts**
 
 ```
 SELECT device_code, (event_timestamp) as month, count (*) as views 
@@ -16,12 +16,17 @@ Some Notes:
 -- not available for Roku, Samsung or Apple TV
 -- I thought there was some data for Apple TV in telegraph so will need to investigate why nothing for this is coming up, perhaps a different implementation
 
-#2.       Purchase Funnel Conversion Rate
-#3.       Purchase Funnel Completion Tim
-#4.       Sign-In Starts
-#5.       Content Consumption Rate
-#6.       Discovery Time
-#7.       Diversity of Content Consumed
-#8.       Session Time
-#9.       Plays & Extended Plays
+**2.       Purchase Funnel Conversion Rate**
+
+```
+```
+
+
+**3.       Purchase Funnel Completion Tim**
+**4.       Sign-In Starts**
+**5.       Content Consumption Rate**
+**6.       Discovery Time**
+**7.       Diversity of Content Consumed**
+**8.       Session Time**
+**9.       Plays & Extended Plays**
 
