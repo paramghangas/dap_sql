@@ -102,9 +102,23 @@ tbd
 
 **6.       Discovery Time**
 * Time to first play
+* there seems to be inconsistency in timestamps that is causing anomolous data to be reported. We need Carlos to address
 
 ```
-tbd
+select date_trunc('month', timestamp) as month
+,device_code
+,sum(stream_flag) as sessions
+,sum(time_to_stream) as total_time_to_stream
+,round(sum(time_to_stream)/ sum(stream_flag),0) as average_time
+from (select a.session_id, a.device_code, a.timestamp, b.first_stream_time
+,(case when b.first_stream_time is not null then 1 else 0 end) as stream_flag
+,(case when b.first_stream_time is not null then date_diff('second', a.timestamp, b.first_stream_time) else null end) as time_to_stream
+from telegraph.application a
+left join
+(select session_id, device_code, min(timestamp) as first_stream_time from telegraph.video where event = 'video:start' and dt >= '2018-01-01' group by 1,2) b
+on a.session_id = b.session_id
+where a.event = 'application:launch' and a.dt >= '2018-01-01') a
+group by 1,2
 ```
 
 **7.       Diversity of Content Consumed**
@@ -116,6 +130,7 @@ tbd
 
 **8.       Session Time**
 * A bit tricky the way the data is structured (requires collapsing all tables to derive session time. Will try to figure out an efficient way of running this.
+* pausing on this until we get more clarity on time stamps of events
 
 ```
 tbd
