@@ -20,7 +20,7 @@ GROUP BY 1,2
 1b. Distinct Purchase Funnel Starts (deduped and accounts for different implementation on mobile/ ctv devices)
 ```
 -- this part addresses the mobile apps
-SELECT device_code, date_trunc('month', event_date) as month, count(session_id)
+SELECT device_code, date_trunc('month', event_date) as month, count(session_id) as starts
 FROM
 (SELECT device_code, date(event_timestamp) as event_date, session_id
 FROM telegraph.ui
@@ -31,7 +31,7 @@ GROUP BY 1,2,3)
 GROUP BY 1,2
 union all
 -- this part addresses the ctv apps (different implementation)
-SELECT device_code, date_trunc('month', event_date) as month, count(session_id)
+SELECT device_code, date_trunc('month', event_date) as month, count(session_id) as starts
 FROM
 (SELECT device_code, date(event_timestamp) as event_date, session_id
 FROM telegraph.navigation
