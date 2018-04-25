@@ -32,17 +32,43 @@ Some Notes:
 -- I thought there was some data for Apple TV in Telegraph so will need to investigate why nothing for this is coming up, perhaps the instrumentation on the Call to Action button is different? Asked Carlos and he said that currently the CTA button is not tagged in those (just mobile) so to pull for those others use navigation  and look for view type "Activation" which is a view to activation page. 
 
 **2.       Purchase Funnel Conversion Rate**
+Question out to DAP team (via slack) on why there are no events after 1/16/2018. Carlos said they are being collected and sent so issue seems to be on DAP end?
 
 ```
-
+tbd
 ```
 
+**3.       Purchase Funnel Completion Time**
+Same dependency as 2
 
-**3.       Purchase Funnel Completion Tim**
+```
+tbd
+```
+
 **4.       Sign-In Starts**
+
+
 **5.       Content Consumption Rate**
+Requires more discussion and context
+
+```
+tbd
+```
+
 **6.       Discovery Time**
+Time to first play
+
 **7.       Diversity of Content Consumed**
+Requires more discussion and context
+
+```
+tbd
+```
+
 **8.       Session Time**
+A bit tricky the way the data is structured (requires collapsing all tables to derive session time. Will try to figure out an efficient way of running this.
+
 **9.       Plays & Extended Plays**
+Will rely on Conviva for now to provide Streams but ideally we'd use Telegraph in the future. 
+What is extended plays?
 
