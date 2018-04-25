@@ -108,7 +108,7 @@ tbd
 ```
 
 **7.       Diversity of Content Consumed**
-Requires more discussion and context
+* Requires more discussion and context
 
 ```
 tbd
