@@ -76,7 +76,7 @@ tbd
 ```
 
 **4.       Sign-In Starts**
-Definition in DP Technical doc: User signs into the app. This event also gets triggered during user token authentication checks. Not sure if there is a way to separate out just active sign ins.
+Definition in DP Technical doc: User signs into the app. This event also gets triggered during user token authentication checks. Not sure if there is a way to separate out just active sign ins. (Using target=login from ui table provides some request to login data for desktop; largely not helpful)
 
 ```
 SELECT device_code, date_trunc('month', event_timestamp) as month, count (*) as signins
