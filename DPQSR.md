@@ -4,14 +4,14 @@
 ```
 SELECT device_code, date_trunc('month', event_timestamp) as month, count (*) as views 
 FROM sp_telegraph.ui
-WHERE event_timestamp >= '2018-01-01'
+WHERE dt >= '2018-01-01'
 AND target LIKE 'PAYWALL_CTA'   
 AND product_code = 'hboNow'
 GROUP BY 1,2
 union all
 SELECT device_code, date_trunc('month', event_timestamp) as month, count (*) as views 
-FROM sp_telegraph.navigation
-WHERE event_timestamp >= '2018-01-01'
+FROM telegraph.navigation
+WHERE dt >= '2018-01-01'
 AND view_type = 'Activation'  
 AND product_code = 'hboNow'
 GROUP BY 1,2
@@ -23,8 +23,8 @@ GROUP BY 1,2
 SELECT device_code, date_trunc('month', event_date) as month, count(session_id)
 FROM
 (SELECT device_code, date(event_timestamp) as event_date, session_id
-FROM sp_telegraph.ui
-WHERE event_timestamp >= '2018-01-01'
+FROM telegraph.ui
+WHERE dt >= '2018-01-01'
 AND target LIKE 'PAYWALL_CTA'   
 AND product_code = 'hboNow'
 GROUP BY 1,2,3)
@@ -34,8 +34,8 @@ union all
 SELECT device_code, date_trunc('month', event_date) as month, count(session_id)
 FROM
 (SELECT device_code, date(event_timestamp) as event_date, session_id
-FROM sp_telegraph.navigation
-WHERE event_timestamp >= '2018-01-01'
+FROM telegraph.navigation
+WHERE dt >= '2018-01-01'
 AND view_type = 'Activation'  
 AND product_code = 'hboNow'
 GROUP BY 1,2,3)
