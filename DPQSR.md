@@ -43,10 +43,13 @@ GROUP BY 1,2
 ```
 
 Some Notes: 
--- assumes that all these complete successfully for now which is unlikely. better to base this off of actual people who reach next page but need to verify the first page is the Register screen for all devices. Is it? Not sure.
--- available in Telegraph for Android (tablet + mobile), desktop, ios (phone + tablet), uwp_tablet (tho minimal data there)
--- not available for Roku, Samsung or Apple TV
--- I thought there was some data for Apple TV in Telegraph so will need to investigate why nothing for this is coming up, perhaps the instrumentation on the Call to Action button is different? Asked Carlos and he said that currently the CTA button is not tagged in those (just mobile) so to pull for those others use navigation  and look for view type "Activation" which is a view to activation page. 
+
+*assumes that all these complete successfully for now which is unlikely. better to base this off of actual people who reach next page but need to verify the first page is the Register screen for all devices. Is it? Not sure.
+-available in Telegraph for Android (tablet + mobile), desktop, ios (phone + tablet), uwp_tablet (tho minimal data there)
+*not available for Roku, Samsung or Apple TV
+*I thought there was some data for Apple TV in Telegraph so will need to investigate why nothing for this is coming up, perhaps the instrumentation on the Call to Action button is different? Asked Carlos and he said that currently the CTA button is not tagged in those (just mobile) so to pull for those others use navigation  and look for view type "Activation" which is a view to activation page. 
+
+
 
 **2.       Purchase Funnel Conversion Rate**
 Not sure that this purchase successful event corresponds to the subscribe event that is being worked on as part of receipts processing but for the purposes of understanding funnel conversion rate, let's use this now with a huge caveat that this may change once transaction work fully completes.
@@ -60,7 +63,6 @@ and product_code = 'hboNow'
 GROUP BY 1,2
 ORDER BY 1,2 ASC
 ```
-
 2b. Purchase Funnel Conversion Rate 
 ```
 
