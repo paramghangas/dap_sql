@@ -1,4 +1,4 @@
-**1. -- Purchase Funnel Starts**
+1. -- Purchase Funnel Starts
 
 SELECT device_code, (event_timestamp) as month, count (*) as views 
 FROM sp_telegraph.ui
