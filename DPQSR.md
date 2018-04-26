@@ -120,5 +120,16 @@ group by 1,2,3
 * What is extended plays?
 
  ```
-  Will complete tomorrow (4/26)
+    select date_trunc('month', a.start_time_utc) as month, count(a.conviva_session_id) as stream_count
+     from 
+     (select hbo_uuid,device_os,startup_time_ms,ip_address,conviva_session_id,start_time_utc, playing_time_ms 
+     from conviva.hbogo_streaming a, identity.idlinktimeseries b
+     where (case when substring(viewerid,1,5)='mlbam' then substring(viewerid,7,200) else viewerid end)=b.external_id  and b.dt='2018-04-26' 
+     and upper(session_tag_affiliate)='HBO_OTT' and date(start_time_utc)>=date('2018-01-01') and date(start_time_utc)<date('2018-04-26') 
+     union -- usage from now coviva
+     select hbo_uuid,device_os,startup_time_ms,ip_address,conviva_session_id,start_time_utc, playing_time_ms
+     from conviva.hbonow_streaming a, identity.idlinktimeseries b
+     where (case when substring(viewerid,1,5)='mlbam' then substring(viewerid,7,200) else viewerid end)=b.external_id  and b.dt='2018-04-26' 
+     and  date(start_time_utc)>=date('2018-01-01') and date(start_time_utc)<date('2018-04-26')) a
+     group by 1)
   ```
