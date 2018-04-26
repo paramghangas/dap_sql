@@ -62,25 +62,37 @@ Some Notes:
   ```
   * 2b. Purchase Funnel Conversion Rate 
   ```
-  Will complete tomorrow (4/26)
+  need more time to complete
   ```
 
 **3.       Purchase Funnel Completion Time**
 Same dependency as 2; also need clarity around timestamps given anomolies encountered in #6
 
-**4.       Sign-In Starts**
-* Definition in DP Technical doc: User signs into the app. This event also gets triggered during user token authentication checks. Not sure if there is a way to separate out just active sign ins. (
+**4.       Sign-Ins**
+* Definition in DP Technical doc: User signs into the app. This event also gets triggered during user token authentication checks. Not sure if there is a way to separate out just active sign ins. 
 * Using target=login from ui table provides some request to login data for desktop; largely not helpful)
 
+4a. Sign In Request (desktop only?)
   ```
-  SELECT device_code, date_trunc('month', event_timestamp) as month, count (*) as signins
-  FROM sp_telegraph.user
-  WHERE event_timestamp >= '2018-01-01'
-  AND event = 'user:signin' 
-  and product_code = 'hboNow'
-  GROUP BY 1,2
-  ORDER BY 2,1 ASC
+SELECT device_code, date_trunc('month', event_timestamp) as month, count (*) as signinrequests
+FROM telegraph.ui
+WHERE dt >= '2018-01-01'
+AND target = 'login' 
+and product_code = 'hboNow'
+GROUP BY 1,2
+ORDER BY 2,1 ASC
   ```
+
+4b. Sign Ins
+```
+SELECT device_code, date_trunc('month', event_timestamp) as month, count (*) as signins
+FROM telegraph.user
+WHERE cast(event_timestamp as date) >= '2018-01-01'
+AND event = 'user:signin' 
+and product_code = 'hboNow'
+GROUP BY 1,2
+ORDER BY 2,1 ASC
+```
 
 **5.       Content Consumption Rate**
 * Requires more discussion and context
