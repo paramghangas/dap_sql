@@ -87,24 +87,26 @@ Same dependency as 2; also need clarity around timestamps given anomolies encoun
 
 **6.       Discovery Time**
 * Time to first play
-* there seems to be inconsistency in timestamps that is causing anomolous data to be reported. We need Carlos to provide clarity
+* there seems to be inconsistency in timestamps that is causing anomolous data to be reported. I think this is because the way Telegraph keeps a session is not necessarily standard; sessions don't seem to end when there is no period of inactivit. I've done Median to get rid of those extremes. The Median window function won't work in Athena; need to run from Redshift.
 
-  ```
-  select date_trunc('month', timestamp) as month
-  ,device_code
-  ,sum(stream_flag) as sessions
-  ,sum(time_to_stream) as total_time_to_stream
-  ,round(sum(time_to_stream)/ sum(stream_flag),0) as average_time
-  from (select a.session_id, a.device_code, a.timestamp, b.first_stream_time
-  ,(case when b.first_stream_time is not null then 1 else 0 end) as stream_flag
-  ,(case when b.first_stream_time is not null then date_diff('second', a.timestamp, b.first_stream_time) else null end) as time_to_stream
-  from telegraph.application a
-  left join
-  (select session_id, device_code, min(timestamp) as first_stream_time from telegraph.video where event = 'video:start' and dt >= '2018-01-01' group by 1,2) b
-  on a.session_id = b.session_id
-  where a.event = 'application:launch' and a.dt >= '2018-01-01') a
-  group by 1,2
-  ```
+```
+select month, device_code, med_time_to_stream
+from
+(SELECT
+     month,
+     device_code,
+     median(time_to_stream) OVER (PARTITION BY month, device_code) as med_time_to_stream
+	from 
+	(select a.session_id, a.device_code, date_trunc('month', event_timestamp) as month, a.event_timestamp, b.first_stream_time
+	,(case when b.first_stream_time is not null then 1 else 0 end) as stream_flag
+	,(case when b.first_stream_time is not null then date_diff('second', a.event_timestamp, b.first_stream_time) else null end) as time_to_stream
+from sp_telegraph.application a
+left join
+(select session_id, device_code, min(timestamp) as first_stream_time from sp_telegraph.video where event = 'video:start' and dt >= '2018-01-01' group by 1,2) b
+on a.session_id = b.session_id
+where a.event = 'application:launch' and a.dt >= '2018-01-01') a ) b
+group by 1,2,3
+```
 
 **7.       Diversity of Content Consumed**
 * Requires more discussion and context
