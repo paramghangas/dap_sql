@@ -12,14 +12,17 @@ ORDER BY 1 ASC
 
 **views on create profile screen (register)**
 ```
-SELECT date_trunc('day', event_timestamp) as day, count (*) as views 
+
+SELECT device_code, date_trunc('month', event_date) as month, count(session_id)
+FROM 
+(SELECT device_code, date(event_timestamp) as event_date, session_id
 FROM sp_telegraph.navigation
-WHERE event_timestamp > date_trunc('month', (getdate())::date - interval '30 days') 
-AND view_type LIKE 'Register'
-and device_code in ('android', 'andrd_tblt')    -- update device
-and product_code = 'hboNow'
-GROUP BY 1
-ORDER BY 1 ASC
+WHERE event_timestamp >= '2018-01-01'
+AND view_type LIKE 'Register'  
+AND product_code = 'hboNow'
+GROUP BY 1,2,3
+ORDER BY 1,2,3 ASC)
+GROUP BY 1,2
 ```
 
 **register events**
